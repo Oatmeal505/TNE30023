@@ -10,7 +10,7 @@ interface range fa0/1-24 , g0/1-2
 shutdown
 vtp mode transparent
 line con 0
-no exec-timeout
+exec-timeout
 logging synchronous
 end
 }
@@ -31,7 +31,7 @@ interface range fa0/1-24 , g0/1-2
 shutdown
 vtp mode transparent
 line con 0
-no exec-timeout
+exec-timeout
 logging synchronous
 end
 }
@@ -50,7 +50,7 @@ interface range g1/0/1-24 , g1/1/1-4
 shutdown
 vtp mode transparent
 line con 0
-no exec-timeout
+exec-timeout
 logging synchronous
 end
 }
@@ -68,7 +68,7 @@ interface range g1/0/1-24 , g1/1/1-4
 shutdown
 vtp mode transparent
 line con 0
-no exec-timeout
+exec-timeout
 logging synchronous
 end
 }
