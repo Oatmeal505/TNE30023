@@ -1,0 +1,168 @@
+hostname ALS1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+system mtu routing 1500
+vtp mode transparent
+ip routing
+!
+!
+no ip domain-lookup
+ip domain-name CCNP.NET
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+vlan 99
+ name MGMT1
+!
+vlan 100
+ name LOCAL
+!
+vlan 110
+ name INTERNODE
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ switchport trunk allowed vlan 1-109,111-4094
+ switchport mode trunk
+!
+interface Port-channel4
+ switchport trunk allowed vlan 110
+ switchport mode trunk
+!
+interface FastEthernet0/1
+ switchport trunk allowed vlan 1-109,111-4094
+ switchport mode trunk
+ channel-group 1 mode desirable
+!
+interface FastEthernet0/2
+ switchport trunk allowed vlan 1-109,111-4094
+ switchport mode trunk
+ channel-group 1 mode desirable
+!
+interface FastEthernet0/3
+ switchport trunk allowed vlan 110
+ switchport mode trunk
+ channel-group 4 mode desirable
+!
+interface FastEthernet0/4
+ switchport trunk allowed vlan 110
+ switchport mode trunk
+ channel-group 4 mode desirable
+!
+interface FastEthernet0/5
+ shutdown
+!
+interface FastEthernet0/6
+ shutdown
+!
+interface FastEthernet0/7
+ shutdown
+!
+interface FastEthernet0/8
+ shutdown
+!
+interface FastEthernet0/9
+ shutdown
+!
+interface FastEthernet0/10
+ shutdown
+!
+interface FastEthernet0/11
+ shutdown
+!
+interface FastEthernet0/12
+ shutdown
+!
+interface FastEthernet0/13
+ switchport access vlan 100
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/14
+ shutdown
+!
+interface FastEthernet0/15
+ shutdown
+!
+interface FastEthernet0/16
+ shutdown
+!
+interface FastEthernet0/17
+ shutdown
+!
+interface FastEthernet0/18
+ shutdown
+!
+interface FastEthernet0/19
+ shutdown
+!
+interface FastEthernet0/20
+ shutdown
+!
+interface FastEthernet0/21
+ shutdown
+!
+interface FastEthernet0/22
+ shutdown
+!
+interface FastEthernet0/23
+ shutdown
+!
+interface FastEthernet0/24
+ shutdown
+!
+interface GigabitEthernet0/1
+ shutdown
+!
+interface GigabitEthernet0/2
+ shutdown
+!
+interface Vlan1
+ no ip address
+!
+interface Vlan99
+ ip address 10.1.99.2 255.255.255.0
+ ipv6 address FE80::A1 link-local
+ ipv6 address 2001:DB8:3115:99::A1/64
+ ipv6 enable
+!
+interface Vlan100
+ ip address 10.1.100.1 255.255.255.0
+!
+interface Vlan110
+ ip address 10.1.110.2 255.255.255.0
+!
+ip http server
+ip http secure-server
+ip route 0.0.0.0 0.0.0.0 10.1.99.1
+ip route 192.168.1.0 255.255.255.0 Vlan110
+!
+!
+!
+line con 0
+ logging synchronous
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+end
