@@ -1,0 +1,174 @@
+hostname ALS1
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$LEi4$yKf4bM4WQ8J.jBES/qISv1
+!
+no aaa new-model
+system mtu routing 1500
+!
+!
+no ip domain-lookup
+ip domain-name CCNP.NET
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ switchport trunk native vlan 666
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface Port-channel2
+ switchport trunk native vlan 666
+ shutdown
+!
+interface Port-channel3
+ switchport trunk native vlan 666
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface FastEthernet0/1
+ description EtherChannel to DLS1
+ switchport trunk native vlan 666
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 1 mode active
+!
+interface FastEthernet0/2
+ description EtherChannel to DLS1
+ switchport trunk native vlan 666
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 1 mode active
+!
+interface FastEthernet0/3
+ description EtherChannel to DLS1
+ switchport trunk native vlan 666
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface FastEthernet0/4
+ description EtherChannel to DLS1
+ switchport trunk native vlan 666
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface FastEthernet0/5
+ description EtherChannel to ALS2
+ switchport trunk native vlan 666
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 3 mode active
+!
+interface FastEthernet0/6
+ description EtherChannel to ALS2
+ switchport trunk native vlan 666
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 3 mode active
+!
+interface FastEthernet0/7
+ shutdown
+!
+interface FastEthernet0/8
+ shutdown
+!
+interface FastEthernet0/9
+ shutdown
+!
+interface FastEthernet0/10
+ shutdown
+!
+interface FastEthernet0/11
+ shutdown
+!
+interface FastEthernet0/12
+ shutdown
+!
+interface FastEthernet0/13
+ shutdown
+!
+interface FastEthernet0/14
+ shutdown
+!
+interface FastEthernet0/15
+ shutdown
+!
+interface FastEthernet0/16
+ shutdown
+!
+interface FastEthernet0/17
+ shutdown
+!
+interface FastEthernet0/18
+ shutdown
+!
+interface FastEthernet0/19
+ shutdown
+!
+interface FastEthernet0/20
+ shutdown
+!
+interface FastEthernet0/21
+ shutdown
+!
+interface FastEthernet0/22
+ shutdown
+!
+interface FastEthernet0/23
+ shutdown
+!
+interface FastEthernet0/24
+ switchport access vlan 100
+ switchport mode access
+!
+interface GigabitEthernet0/1
+ shutdown
+!
+interface GigabitEthernet0/2
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan99
+ ip address 172.16.99.101 255.255.255.0
+!
+ip default-gateway 172.16.99.1
+ip http server
+ip http secure-server
+ip sla responder
+ip sla responder udp-echo ipaddress 172.16.99.1 port 5000
+!
+!
+!
+line con 0
+ logging synchronous
+line vty 0 4
+ password cisco
+ login
+line vty 5 15
+ password cisco
+ login
+!
+!
+monitor session 1 source interface Fa0/24
+monitor session 1 destination remote vlan 300
+end
