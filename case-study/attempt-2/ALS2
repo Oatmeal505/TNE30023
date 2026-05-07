@@ -1,0 +1,237 @@
+hostname ALS2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+system mtu routing 1500
+vtp domain CISCO
+vtp mode transparent
+!
+!
+no ip domain-lookup
+ip domain-name CCNP.NET
+!
+!
+crypto pki trustpoint TP-self-signed-313215616
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-313215616
+ revocation-check none
+ rsakeypair TP-self-signed-313215616
+!
+!
+crypto pki certificate chain TP-self-signed-313215616
+ certificate self-signed 01
+  30820229 30820192 A0030201 02020101 300D0609 2A864886 F70D0101 05050030
+  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274
+  69666963 6174652D 33313332 31353631 36301E17 0D393330 33303130 30333834
+  345A170D 32303031 30313030 30303030 5A303031 2E302C06 03550403 1325494F
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3331 33323135
+  36313630 819F300D 06092A86 4886F70D 01010105 0003818D 00308189 02818100
+  F2F7DA01 7E125B9B B95B683C 8FD39DEC C0C539AE 6E6BB480 378C8A30 9B46878A
+  FAC45E17 B82F3218 68198A24 3857BC08 0F1BEFD4 98A4CF72 0DA75B14 14439BF0
+  A1C0CE98 D1E18AD2 05966E7B 6CF0DD6D DB0D8874 938B87A6 FB93E142 D516C937
+  EA93B669 BF114B42 9BAB48BB 8ACB9D3D AB2595AD 5632C088 94DC5E68 0B2A0D4B
+  02030100 01A35330 51300F06 03551D13 0101FF04 05300301 01FF301F 0603551D
+  23041830 1680148A 9784FF63 7371FC96 F0FF5A13 B2A27204 31C78530 1D060355
+  1D0E0416 04148A97 84FF6373 71FC96F0 FF5A13B2 A2720431 C785300D 06092A86
+  4886F70D 01010505 00038181 008B3F27 CE43E1B1 37F32436 49695E82 71D6A4A4
+  A0D39381 6F1D6530 0A095D42 633317F3 1B764030 1B865DC1 E33B637E A502AD26
+  56CFDA2D E7988318 F23327F5 40497530 08F93FC1 5E948B42 E065C565 98838151
+  A05B38B4 D02077D9 A45ED20E 66E54BC0 AC077E10 F57F5515 3F8EBBF1 62A70EF8
+  23E53C51 D4B4B31D 9415DF7E 8D
+        quit
+!
+!
+!
+!
+!
+!
+spanning-tree mode mst
+spanning-tree extend system-id
+!
+spanning-tree mst configuration
+ revision 1
+ instance 1 vlan 10, 20
+ instance 2 vlan 100, 110
+!
+!
+vlan internal allocation policy ascending
+!
+vlan 10
+ name Staff
+!
+vlan 20
+ name Students
+!
+vlan 100
+ name Managment
+!
+vlan 800
+ name Native
+!
+vlan 999
+ name Parking
+!
+!
+!
+!
+!
+!
+interface Port-channel3
+ switchport trunk native vlan 800
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface Port-channel4
+ switchport trunk native vlan 800
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface FastEthernet0/1
+ switchport trunk native vlan 800
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 4 mode desirable
+!
+interface FastEthernet0/2
+ switchport trunk native vlan 800
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 4 mode desirable
+!
+interface FastEthernet0/3
+ switchport trunk native vlan 800
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 3 mode on
+!
+interface FastEthernet0/4
+ switchport trunk native vlan 800
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 3 mode on
+!
+interface FastEthernet0/5
+ shutdown
+!
+interface FastEthernet0/6
+ shutdown
+!
+interface FastEthernet0/7
+ switchport access vlan 20
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/8
+ switchport access vlan 20
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/9
+ switchport access vlan 20
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/10
+ switchport access vlan 20
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/11
+ switchport access vlan 20
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/12
+ switchport access vlan 20
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/13
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/14
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/15
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/16
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/17
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/18
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/19
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/20
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/21
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/22
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/23
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+!
+interface FastEthernet0/24
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+!
+interface GigabitEthernet0/1
+ shutdown
+!
+interface GigabitEthernet0/2
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan100
+ ip address 172.16.100.102 255.255.255.0
+!
+ip http server
+ip http secure-server
+!
+!
+!
+line con 0
+ logging synchronous
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+end
