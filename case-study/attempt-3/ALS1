@@ -1,0 +1,292 @@
+hostname ALS1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+system mtu routing 1500
+vtp domain CISCO
+vtp mode transparent
+!
+!
+ip dhcp snooping vlan 10,20,100,110
+ip dhcp snooping
+no ip domain-lookup
+ip domain-name CCNP.NET
+!
+!
+crypto pki trustpoint TP-self-signed-315451136
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-315451136
+ revocation-check none
+ rsakeypair TP-self-signed-315451136
+!
+!
+crypto pki certificate chain TP-self-signed-315451136
+ certificate self-signed 01
+  30820229 30820192 A0030201 02020101 300D0609 2A864886 F70D0101 05050030
+  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274
+  69666963 6174652D 33313534 35313133 36301E17 0D393330 33303130 30333034
+  395A170D 32303031 30313030 30303030 5A303031 2E302C06 03550403 1325494F
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3331 35343531
+  31333630 819F300D 06092A86 4886F70D 01010105 0003818D 00308189 02818100
+  B633CA13 CED03961 7F36DDAA 7279F7BE F36CA001 BF71B343 870597C4 41C14BEA
+  BD4FFC42 06DA6982 2FAB4736 F5E1ADB7 679B2B67 3FDA60A8 A4D039CB A87AFB16
+  4785938A 679C3E77 0EDF686E 8289FE82 FE3B60F5 92F7E803 7F0A17BF 98C530D1
+  A373BDDE 4B76B9FE 832B2DA0 1DC2986D 4B321EBE 24DF6353 746D0139 522CAE29
+  02030100 01A35330 51300F06 03551D13 0101FF04 05300301 01FF301F 0603551D
+  23041830 168014BC 38F9AA9B DA93BA72 FDD46AC2 E0664370 D49E8830 1D060355
+  1D0E0416 0414BC38 F9AA9BDA 93BA72FD D46AC2E0 664370D4 9E88300D 06092A86
+  4886F70D 01010505 00038181 00AB558D D2077590 7C616A5F E535576D 91BA43F1
+  D60979B0 5E862495 4524EC31 096EB228 9A0DC0E9 DFFA580F D6355307 33B93E91
+  FC3D077C 3E7FCA8E C87CB6EF 5F98B610 7F081FC9 2ED71CAA 9DF73F55 FB9A92C5
+  672FC3AA 561C4110 9C22305F 36FE30ED 75CFA435 B868D711 183562D6 C6AA6F15
+  34A89426 C72DF75C 5902DF19 AB
+        quit
+!
+!
+!
+!
+!
+!
+spanning-tree mode mst
+spanning-tree portfast bpduguard default
+spanning-tree extend system-id
+!
+spanning-tree mst configuration
+ revision 1
+ instance 1 vlan 10, 20
+ instance 2 vlan 100, 110
+!
+!
+vlan internal allocation policy ascending
+!
+vlan 10
+ name Staff
+!
+vlan 20
+ name Students
+!
+vlan 100
+ name Managment
+!
+vlan 150
+ name Server_Farm
+!
+vlan 800
+ name Native
+!
+vlan 999
+ name Parking
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ switchport trunk native vlan 800
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface Port-channel2
+ switchport trunk native vlan 800
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface FastEthernet0/1
+ switchport trunk native vlan 800
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 1 mode desirable
+ ip dhcp snooping trust
+!
+interface FastEthernet0/2
+ switchport trunk native vlan 800
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 1 mode desirable
+ ip dhcp snooping trust
+!
+interface FastEthernet0/3
+ switchport trunk native vlan 800
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 2 mode on
+ ip dhcp snooping trust
+!
+interface FastEthernet0/4
+ switchport trunk native vlan 800
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 2 mode on
+ ip dhcp snooping trust
+!
+interface FastEthernet0/5
+ shutdown
+!
+interface FastEthernet0/6
+ shutdown
+!
+interface FastEthernet0/7
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface FastEthernet0/8
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface FastEthernet0/9
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface FastEthernet0/10
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface FastEthernet0/11
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface FastEthernet0/12
+ switchport access vlan 10
+ switchport mode access
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface FastEthernet0/13
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface FastEthernet0/14
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface FastEthernet0/15
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface FastEthernet0/16
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface FastEthernet0/17
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface FastEthernet0/18
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface FastEthernet0/19
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface FastEthernet0/20
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface FastEthernet0/21
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface FastEthernet0/22
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface FastEthernet0/23
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface FastEthernet0/24
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security maximum 3
+ switchport port-security
+ spanning-tree portfast
+ ip dhcp snooping limit rate 15
+!
+interface GigabitEthernet0/1
+ shutdown
+!
+interface GigabitEthernet0/2
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan100
+ ip address 172.16.100.101 255.255.255.0
+!
+interface Vlan150
+ no ip address
+!
+ip http server
+ip http secure-server
+!
+!
+!
+line con 0
+ logging synchronous
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+end
