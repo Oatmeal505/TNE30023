@@ -167,12 +167,6 @@ interface Port-channel1
  switchport mode trunk
  switchport nonegotiate
 !
-interface Port-channel2
- switchport trunk native vlan 800
- switchport mode trunk
- switchport nonegotiate
- shutdown
-!
 interface Port-channel3
  switchport trunk native vlan 800
  switchport mode trunk
