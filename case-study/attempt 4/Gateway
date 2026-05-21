@@ -1,0 +1,163 @@
+hostname GATEWAY
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ --More--
+Console> ** Session will finish in less than 10 minutes
+
+Console> ** Session will finish in less than 10 minutes                exit-address-family
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name sshremote.lab
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+!
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+license udi pid ISR4321/K9 sn FDO214709A9
+license boot suite FoundationSuiteK9
+license boot level securityk9
+no license smart enable
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+!
+username Admin privilege 15 secret 9 $9$HBrR82RnZl30/a$riDJKKHH3yPWCqxyRzSC9ftioM///R4gXIrT0wfaCO6
+!
+redundancy
+ mode none
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 200.200.10.5 255.255.255.255
+!
+interface GigabitEthernet0/0/0
+ ip address 192.168.1.1 255.255.255.252
+ negotiation auto
+!
+interface GigabitEthernet0/0/1
+ ip address 192.168.0.1 255.255.255.252
+ negotiation auto
+!
+interface Serial0/1/0
+ no ip address
+ shutdown
+!
+interface Serial0/1/1
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0
+ vrf forwarding Mgmt-intf
+ no ip address
+ shutdown
+ negotiation auto
+!
+!
+router eigrp 100
+ network 192.168.0.0 0.0.0.3
+ network 192.168.1.0 0.0.0.3
+ redistribute static
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+ip tftp source-interface GigabitEthernet0
+ip route 0.0.0.0 0.0.0.0 Loopback0
+!
+ip ssh time-out 90
+ip ssh authentication-retries 2
+ip ssh version 2
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ transport input none
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ privilege level 15
+ login local
+ transport input ssh
+!
+wsma agent exec
+!
+wsma agent config
+!
+wsma agent filesys
+!
+wsma agent notify
+!
+!
+end
