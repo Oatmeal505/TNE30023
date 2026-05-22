@@ -10,10 +10,7 @@ vrf definition Mgmt-vrf
  exit-address-family
 !
 !
- --More--
-Console> ** Session will finish in less than 10 minutes
-
-Console> ** Session will finish in less than 10 minutes               no aaa new-model
+no aaa new-model
 clock timezone AEST 10 0
 clock summer-time AEDT recurring 1 Sun Oct 2:00 1 Sun Apr 3:00
 switch 1 provision ws-c3650-24ts
@@ -282,6 +279,8 @@ interface GigabitEthernet1/0/14
 interface GigabitEthernet1/0/15
  switchport private-vlan host-association 150 152
  switchport mode private-vlan host
+ spanning-tree portfast
+ spanning-tree bpduguard enable
 !
 interface GigabitEthernet1/0/16
  switchport private-vlan host-association 150 151
@@ -290,14 +289,12 @@ interface GigabitEthernet1/0/16
  spanning-tree bpduguard enable
 !
 interface GigabitEthernet1/0/17
- switchport access vlan 999
  switchport private-vlan host-association 150 151
  switchport mode private-vlan host
  spanning-tree portfast
  spanning-tree bpduguard enable
 !
 interface GigabitEthernet1/0/18
- switchport access vlan 999
  switchport private-vlan host-association 150 152
  switchport mode private-vlan host
  spanning-tree portfast
