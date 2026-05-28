@@ -10,10 +10,6 @@ vrf definition Mgmt-intf
  exit-address-family
  !
  address-family ipv6
- --More--
-Console> ** Session will finish in less than 10 minutes
-
-Console> ** Session will finish in less than 10 minutes                exit-address-family
 !
 !
 no aaa new-model
