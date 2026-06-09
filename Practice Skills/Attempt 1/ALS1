@@ -1,0 +1,288 @@
+hostname ALS1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+system mtu routing 1500
+vtp domain Engineering
+vtp mode transparent
+ip arp inspection vlan 30,40
+!
+!
+ip dhcp snooping
+no ip domain-lookup
+ip domain-name CCNP.NET
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode mst
+spanning-tree extend system-id
+!
+spanning-tree mst configuration
+ revision 1
+ instance 1 vlan 30, 40
+ instance 2 vlan 99, 140
+!
+!
+!
+vlan access-map Architect 10
+ match ip address Architect
+ action forward
+vlan access-map Architect 20
+ action forward
+!
+vlan filter Architect vlan-list 40
+vlan internal allocation policy ascending
+!
+vlan 30
+ name Engineers
+!
+vlan 40
+ name Architects
+!
+vlan 99
+ name Managment
+!
+vlan 140
+ name Voice
+!
+vlan 200
+ name Server_farm
+!
+vlan 666
+ name Native
+!
+vlan 999
+ name Parking
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ switchport trunk native vlan 666
+ switchport mode trunk
+ ip arp inspection trust
+!
+interface Port-channel3
+ switchport trunk native vlan 666
+ switchport mode trunk
+ ip arp inspection trust
+!
+interface FastEthernet0/1
+ switchport trunk native vlan 666
+ switchport mode trunk
+ ip arp inspection trust
+ udld port aggressive
+ channel-group 1 mode on
+ ip dhcp snooping limit rate 10
+ ip dhcp snooping trust
+!
+interface FastEthernet0/2
+ switchport trunk native vlan 666
+ switchport mode trunk
+ ip arp inspection trust
+ udld port aggressive
+ channel-group 1 mode on
+ ip dhcp snooping limit rate 10
+ ip dhcp snooping trust
+!
+interface FastEthernet0/3
+ switchport trunk native vlan 666
+ switchport mode trunk
+ ip arp inspection trust
+ udld port aggressive
+ channel-group 3 mode active
+ ip dhcp snooping limit rate 10
+ ip dhcp snooping trust
+!
+interface FastEthernet0/4
+ switchport trunk native vlan 666
+ switchport mode trunk
+ ip arp inspection trust
+ udld port aggressive
+ channel-group 3 mode active
+ ip dhcp snooping limit rate 10
+ ip dhcp snooping trust
+!
+interface FastEthernet0/5
+ ip arp inspection limit rate 6
+ shutdown
+!
+interface FastEthernet0/6
+ ip arp inspection limit rate 6
+ shutdown
+!
+interface FastEthernet0/7
+ switchport access vlan 30
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/8
+ switchport access vlan 30
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/9
+ switchport access vlan 40
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/10
+ switchport access vlan 30
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/11
+ switchport access vlan 30
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/12
+ switchport access vlan 30
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/13
+ switchport access vlan 40
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/14
+ switchport access vlan 40
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/15
+ switchport access vlan 40
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/16
+ switchport access vlan 40
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/17
+ switchport access vlan 40
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/18
+ switchport access vlan 40
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/19
+ switchport access vlan 40
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/20
+ switchport access vlan 40
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/21
+ switchport access vlan 40
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/22
+ switchport access vlan 40
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/23
+ switchport access vlan 40
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface FastEthernet0/24
+ switchport access vlan 40
+ switchport mode access
+ ip arp inspection limit rate 6
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/1
+ ip arp inspection limit rate 6
+ shutdown
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/2
+ ip arp inspection limit rate 6
+ shutdown
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan99
+ ip address 10.0.99.11 255.255.255.0
+!
+ip http server
+ip http secure-server
+!
+ip access-list extended Architect
+ permit ip host 10.0.30.200 10.0.30.0 0.0.0.255
+ permit icmp host 10.0.30.200 10.0.30.0 0.0.0.255
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+ntp server 10.0.99.2
+end
